@@ -21,8 +21,12 @@ const JobPage = () => {
 
   const deleteJob = async (id) => {
     try {
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`/api/jobs/${id}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (!res.ok) {
         throw new Error("Failed to delete job");
