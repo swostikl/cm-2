@@ -3,7 +3,7 @@ dotenv.config()
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-// const userRouter = require("./routes/userRouter");
+const userRouter = require("./routes/userRouter");
 const jobRouter = require('./routes/jobRouter')
 const {
   unknownEndpoint,
@@ -23,7 +23,7 @@ connectDB()
 app.use('/api/jobs', jobRouter)
 
 // Use the userRouter for all /users routes
-// app.use("/api/users", userRouter);
+app.use("/api/users", userRouter);
 
 app.use(unknownEndpoint)
 app.use(errorHandler)
