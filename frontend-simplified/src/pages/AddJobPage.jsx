@@ -29,14 +29,20 @@ const AddJobPage = () => {
 
   const addJob = async (newJob) => {
     try {
+      const token = sessionStorage.getItem("accessToken");
+      if (!token) {
+        throw new Error("User not logged in");
+      }
       const res = await fetch("/api/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(newJob),
       });
       if (!res.ok) {
+        console.log(res.body);
         throw new Error("Failed to add job");
       }
     } catch (error) {
