@@ -14,8 +14,8 @@ const {
 
 router.get('/', getAllJobs)
 router.post('/', createJob)
-router.get('/:jobId', getJobById)
-router.put('/:jobId', updateJobById)
-router.delete('/:jobId', deleteJobById)
+router.get('/:id', getJobById)
+router.put('/:id', updateJobById)
+router.delete('/:id', deleteJobById)
 
 module.exports = router
