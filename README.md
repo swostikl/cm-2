@@ -2,7 +2,6 @@
 
 ## Usage
 
- 
 ### Mock Server
 
 1. Open a terminal in the `backend/api-fake-server` directory
@@ -25,7 +24,7 @@ npm run dev
 
 1. Open another terminal in the `frontend` directory (or `frontend-simplified`)
 
-2. Install Dependencies 
+2. Install Dependencies
 
 ```bash
 npm install
@@ -38,7 +37,6 @@ npm run dev
 ```
 
 React will run on http://localhost:3000
-
 
 ### Api Server
 
@@ -59,6 +57,7 @@ npm run dev
 4. The server will run on http://localhost:4000
 
 ---
+
 ## Other
 
 ### Build for Production
@@ -73,7 +72,8 @@ npm run build
 npm run preview
 ```
 
-### About 
+### About
+
 This is the jobs listing project based on the [YouTube crash course](https://youtu.be/LDB4uaJ87e0).
 
-<img src="./frontend/public/screen.png" />
+<img src="./frontend/public/screen.png"
