@@ -1,19 +1,19 @@
 import { useState } from "react";
 import useSignUp from "../hooks/useSignUp";
+import { useNavigate } from "react-router-dom";
+import useField from "../hooks/useSignUpField";
 
 const SignUpPage = () => {
-  const {
-    nameField,
-    emailField,
-    passwordField,
-    phoneNumber,
-    setPhoneNumber,
-    genderField,
-    streetField,
-    cityField,
-    zipCodeField,
-    submitForm,
-  } = useSignUp();
+  const nameField = useField("", "text");
+  const emailField = useField("", "email");
+  const passwordField = useField("", "password");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const genderField = useField("", "");
+  const streetField = useField("", "text");
+  const cityField = useField("", "text");
+  const zipCodeField = useField("", "text");
+  const { submitForm, loading, error } = useSignUp();
+  const navigate = useNavigate();
 
   const changePhoneNumber = (e) => {
     const val = e.target.value.replace(/\D+/g, "");
@@ -23,13 +23,35 @@ const SignUpPage = () => {
     setPhoneNumber(val);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await submitForm(
+      nameField,
+      emailField,
+      passwordField,
+      phoneNumber,
+      genderField,
+      streetField,
+      cityField,
+      zipCodeField
+    );
+    if (success) {
+      navigate("/");
+    }
+  };
+
   return (
     // name, email, password, phone number, gender, date of birth, membership status
     <section className="bg-indigo-50 flex-col flex">
       <div className="container m-auto max-w-2xl py-24 flex-1">
         <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
-          <form onSubmit={submitForm}>
+          <form onSubmit={handleSubmit}>
             <h2 className="text-3xl text-center font-semibold mb-6">Sign up</h2>
+            {error && (
+              <p className="text-red-600 text-center mb-4 font-medium">
+                {error}
+              </p>
+            )}
 
             <div className="mb-4">
               <label

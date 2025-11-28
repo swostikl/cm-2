@@ -9,7 +9,7 @@ export function useLogin() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -24,7 +24,7 @@ export function useLogin() {
       }
 
       // Save the token
-      localStorage.setItem("token", data.token);
+      sessionStorage.setItem("accessToken", data.token);
 
       setLoading(false);
       return true;

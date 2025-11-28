@@ -2,14 +2,8 @@ import { useState } from "react";
 import useField from "./useSignUpField";
 
 const useSignUp = () => {
-  const nameField = useField("", "text");
-  const emailField = useField("", "email");
-  const passwordField = useField("", "password");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const genderField = useField("", "");
-  const streetField = useField("", "text");
-  const cityField = useField("", "text");
-  const zipCodeField = useField("", "text");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -18,8 +12,16 @@ const useSignUp = () => {
       );
   };
 
-  const submitForm = async (e) => {
-    e.preventDefault();
+  const submitForm = async (
+    nameField,
+    emailField,
+    passwordField,
+    phoneNumber,
+    genderField,
+    streetField,
+    cityField,
+    zipCodeField
+  ) => {
     if (
       !validateEmail(emailField.value) ||
       nameField.value === "" ||
@@ -35,6 +37,21 @@ const useSignUp = () => {
     }
     console.log("submitted");
     try {
+      setLoading(true);
+      console.log(
+        JSON.stringify({
+          name: nameField.value,
+          email: emailField.value,
+          password: passwordField.value,
+          phone_number: phoneNumber,
+          gender: genderField.value,
+          address: {
+            street: streetField.value,
+            city: cityField.value,
+            zipCode: zipCodeField.value,
+          },
+        })
+      );
       const response = await fetch("/api/users/signup", {
         method: "POST",
         headers: {
@@ -54,29 +71,27 @@ const useSignUp = () => {
         }),
       });
       if (!response.ok) {
-        console.error("response not ok");
-        return;
+        console.error(response);
+        throw new Error("response not ok");
       }
       const result = await response.json();
       if (result.token) {
         sessionStorage.setItem("accessToken", result.token);
+        return true;
       }
     } catch (error) {
       console.error("error:", error);
+      setError(error);
+    } finally {
+      setLoading(false);
     }
+    return false;
   };
 
   return {
-    nameField,
-    emailField,
-    passwordField,
-    phoneNumber,
-    setPhoneNumber,
-    genderField,
-    streetField,
-    cityField,
-    zipCodeField,
     submitForm,
+    loading,
+    error,
   };
 };
 
