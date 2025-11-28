@@ -18,6 +18,7 @@ const Navbar = () => {
                 React Jobs
               </span>
             </NavLink>
+
             <div className='md:ml-auto'>
               <div className='flex space-x-2'>
                 <NavLink to='/' className={linkClass}>
@@ -29,12 +30,20 @@ const Navbar = () => {
                 <NavLink to='/add-job' className={linkClass}>
                   Add Job
                 </NavLink>
+
+                {/* ADD THIS for login */}
+                <NavLink to='/login' className={linkClass}>
+                  Login
+                </NavLink>
+          
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </nav>
   );
 };
+
 export default Navbar;
