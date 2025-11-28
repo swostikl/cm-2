@@ -1,5 +1,41 @@
 # React Jobs Project
 
+```javascript
+    jobSchema.set('toJSON', {
+    virtuals: true,
+    transform: (doc, ret) => {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+    }
+    });
+
+```
+
+## Explanation of above code
+- Configure the schema's JSON output
+- jobSchema.set'toJSON',      Tells Mongoose to use this config when converting docs to JSON
+- virtuals: true,           Includes virtual properties (schema.virtual(...)) in the JSON output
+- transform: (doc, ret) =>    Provides a transform function that runs after conversion
+- ret.id = ret._id;          Creates a new property "id" and set it to the original MongoDB _id
+- delete ret._id;            Removes the original "_id" field from the JSON (cleaner output)
+- delete ret.__v;            Removes the "__v" version key (Mongoose internal)    
+- return ret;                Returns the modified object which will be sent to the client
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Usage
 
  
