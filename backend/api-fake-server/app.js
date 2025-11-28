@@ -6,8 +6,8 @@ const morgan = require('morgan')
 const {
   unknownEndpoint,
   errorHandler,
-} = require('./middleware/customMiddleware')
-const connectDB = require('./config/db')
+} = require('./src/middleware/customMiddleware')
+const connectDB = require('./src/config/db')
 const cors = require('cors')
 
 // Middlewares
