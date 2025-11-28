@@ -19,7 +19,7 @@ const SignUpPage = () => {
       );
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     if (
       !validateEmail(emailField.value) ||
@@ -35,6 +35,32 @@ const SignUpPage = () => {
       return;
     }
     console.log("submitted");
+    try {
+      const response = await fetch("/api/users/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: nameField.value,
+          email: emailField.value,
+          password: passwordField.value,
+          phone_number: phoneNumber,
+          gender: genderField.value,
+          address: {
+            street: streetField.value,
+            city: cityField.value,
+            zipCode: zipCodeField.value,
+          },
+        }),
+      });
+      const result = await response.json();
+      if (result.token) {
+        sessionStorage.setItem("accessToken", result.token);
+      }
+    } catch (error) {
+      console.error("error:", error);
+    }
   };
 
   const changePhoneNumber = (e) => {
@@ -140,7 +166,7 @@ const SignUpPage = () => {
               </label>
               <input
                 className="border rounded w-full py-2 px-3"
-                placeholder="Phone Number"
+                placeholder="Street"
                 {...streetField}
                 required
               ></input>
