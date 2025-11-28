@@ -1,40 +1,21 @@
 import { useState } from "react";
+import { useLogin } from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
 
+  const { login, loading, error } = useLogin();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setError(null); // reset error
 
-    try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+    const success = await login(email, password);
 
-      const data = await response.json();
-
-      // Login failed
-      if (!response.ok) {
-        setError(data.error || "Invalid email or password");
-        return;
-      }
-
-      // Login successful → save token
-      localStorage.setItem("token", data.token);
-
-      // Redirect to homepage
+    if (success) {
       navigate("/");
-    } catch (err) {
-      console.error(err);
-      setError("Something went wrong. Please try again.");
     }
   }
 
@@ -69,8 +50,11 @@ const LoginPage = () => {
           />
         </div>
 
-        <button className="w-full bg-blue-600 text-white py-2 rounded">
-          Login
+        <button
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-2 rounded disabled:bg-blue-300"
+        >
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>
