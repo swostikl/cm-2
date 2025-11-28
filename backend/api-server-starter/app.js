@@ -1,4 +1,5 @@
-require('dotenv').config()
+const dotenv = require('dotenv')
+dotenv.config()
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
@@ -7,8 +8,8 @@ const jobRouter = require('./routes/jobRouter')
 const {
   unknownEndpoint,
   errorHandler,
-} = require('./src/middleware/customMiddleware')
-const connectDB = require('./src/config/db')
+} = require('./middleware/customMiddleware')
+const connectDB = require('./config/db')
 const cors = require('cors')
 
 // Middlewares
