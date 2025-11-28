@@ -3,9 +3,16 @@ const mongoose = require('mongoose');
 
 //get all jobs
 const getAllJobs = async (req,res)=> {
-    const jobs = await Job.find ({}).sort({createdAt:-1});
+    try {
+        const limit = parseInt(req.query._limit);
+        const jobs = limit 
+            ? await Job.find({}).sort({ createdAt: -1 }).limit(limit)
+            : await Job.find({}).sort({ createdAt: -1 });
 
-    res.status(200).json(jobs);
+        res.status(200).json(jobs);
+    } catch (error) {
+        res.status(500).json({ message: "Failed to fetch jobs" });
+    }
 }
 
 //get a single jobs
