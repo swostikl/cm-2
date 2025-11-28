@@ -4,13 +4,15 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+import LoginPage from "./pages/LoginPage"; 
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import JobsPage from "./pages/JobsPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import JobPage from "./pages/JobPage"; 
+import JobPage from "./pages/JobPage";
 import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
+import SignUpPage from "./pages/SignupPage";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -21,6 +23,10 @@ const App = () => {
         <Route path="/add-job" element={<AddJobPage />} />
         <Route path="/edit-job/:id" element={<EditJobPage />} />
         <Route path="/jobs/:id" element={<JobPage />} />
+        {/* Add Signup Route */}
+        <Route path="/signup" element={<SignUpPage />} />
+        {/* Add Login Route */}
+        <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     )
