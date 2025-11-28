@@ -7,8 +7,9 @@ const SignUpPage = () => {
   const passwordField = useField("", "password");
   const [phoneNumber, setPhoneNumber] = useState("");
   const genderField = useField("", "");
-  const dateOfBirthField = useField("", "date");
-  const membershipStatusField = useField("", "");
+  const streetField = useField("", "text");
+  const cityField = useField("", "text");
+  const zipCodeField = useField("", "text");
 
   const validateEmail = (email) => {
     return String(email)
@@ -26,8 +27,9 @@ const SignUpPage = () => {
       passwordField.value === "" ||
       phoneNumber === "" ||
       genderField.value === "" ||
-      dateOfBirthField.value === "" ||
-      membershipStatusField.value === ""
+      streetField.value === "" ||
+      cityField.value === "" ||
+      zipCodeField.value === ""
     ) {
       alert("Please fill out all fields with valid info");
       return;
@@ -131,42 +133,45 @@ const SignUpPage = () => {
             </div>
             <div className="mb-4">
               <label
-                htmlFor="date_of_birth"
+                htmlFor="street"
                 className="block text-gray-700 font-bold mb-2"
               >
-                Date of birth
+                Street
               </label>
               <input
                 className="border rounded w-full py-2 px-3"
-                placeholder="Date of Birth"
+                placeholder="Phone Number"
+                {...streetField}
                 required
-                {...dateOfBirthField}
               ></input>
             </div>
             <div className="mb-4">
               <label
-                htmlFor="membership_status"
+                htmlFor="city"
                 className="block text-gray-700 font-bold mb-2"
               >
-                Membership Status
+                City
               </label>
-              <select
+              <input
                 className="border rounded w-full py-2 px-3"
-                value={membershipStatusField.value}
-                onChange={membershipStatusField.onChange}
+                placeholder="City"
+                {...cityField}
+                required
+              ></input>
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="zip_code"
+                className="block text-gray-700 font-bold mb-2"
               >
-                <option value="" default disabled>
-                  Choose membership status
-                </option>
-                <option value={"Active"}>Active</option>
-                <option value={"Inactive"}>Inactive</option>
-                <option value={"Suspended"}>Suspended</option>
-              </select>
-              <div className="w-full justify-center flex items-center mt-10">
-                <button className="bg-indigo-600 text-white p-2 flex-1 rounded">
-                  Sign up
-                </button>
-              </div>
+                Zip Code
+              </label>
+              <input
+                className="border rounded w-full py-2 px-3"
+                placeholder="Zip Code"
+                {...zipCodeField}
+                required
+              ></input>
             </div>
 
             {/* <div className="mb-4">
@@ -342,15 +347,16 @@ const SignUpPage = () => {
                 onChange={(e) => setContactPhone(e.target.value)}
               />
             </div>
+            */}
 
             <div>
               <button
                 className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
                 type="submit"
               >
-                Add Job
+                Sign up
               </button>
-            </div> */}
+            </div>
           </form>
         </div>
       </div>
